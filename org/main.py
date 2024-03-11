@@ -1,34 +1,15 @@
-from fastapi import FastAPI, status, HTTPException
-
-from .crud import create_org, get_org
-from . import schemas
+from fastapi import FastAPI, status, HTTPException, Path
+from typing import Annotated
+from . import schemas, crud
+from .routes import org, contact_us
 
 app = FastAPI()
 
-
-
-@app.get("/")
+@app.get("/", tags=['Home'])
 async def root():
     return {'message': 'Welcome to CIPK API'} 
+    
+app.include_router(org.router)
+app.include_router(contact_us.router)
 
 
-@app.get("/org/{org_id}", response_model=schemas.OrgOut)
-def get_org(org_id: int):
-    org = get_org(org_id)
-    return org 
-
-
-@app.post("/org/", status_code=status.HTTP_201_CREATED, response_model=schemas.OrgOut)
-def create_org(org: schemas.OrgIn):
-    org = create_org(org)
-    return org
-
-@app.patch("/org/{org_id}")
-def update_org(org_id: int, org: schemas.OrgIn):
-    org = update_org(org)
-    return {'message': 'Org has been updated'}
-
-
-@app.post("/contact_us")
-def contact_us():
-    return {'message': 'Message sent'}

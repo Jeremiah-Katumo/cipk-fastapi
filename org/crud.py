@@ -15,7 +15,7 @@ def get_org(org_id: int):
         for key, value in db_org.items():
             if(key == 'id' and value == org_id):
                 org = db_org
-            break
+                break
     return org
 
 def create_org(org: schemas.OrgIn):
@@ -39,15 +39,19 @@ def create_org(org: schemas.OrgIn):
 def update_org(org_id: int, org: schemas.OrgIn):
     
     update_successful = False 
+    new_org = org.dict()
 
+    row = 0
     for db_org in fakeDB:
         for key, value in db_org.items():
             if(key == 'id' and value == org_id):
-                # Update here
+                new_org.update({'id': value})
+                fakeDB[row] = new_org
                 update_successful = True
             break
+        row += 1 
 
     if not update_successful:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Org Id {org_id} not found')
 
-    return org
+    return new_org
