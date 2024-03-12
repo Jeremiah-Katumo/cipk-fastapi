@@ -1,6 +1,9 @@
 from fastapi import FastAPI, status, HTTPException
 from ..schemas import org_schemas
 from datetime import datetime, date
+from ..models import org_models
+
+from sqlalchemy.orm import Session
 
 fakeDB = [
     {
@@ -33,23 +36,31 @@ def get_org(org_id: int):
                 break
     return org
 
-def create_org(org: org_schemas.OrgIn):
+def create_org(db: Session, org: org_schemas.OrgIn):
+
     new_org = org.dict()
+
+    db_org = org_models.Org(**new_org)
+    db.add(db_org)
+    db.commit()
+    db.refresh(db_org)
+
+    # new_org = org.dict()
     
-    orgIds = []
+    # orgIds = []
 
-    for db_org in fakeDB:
-        for key, value in db_org.items():
-            if(key == 'id'):
-                orgIds.append(value)
+    # for db_org in fakeDB:
+    #     for key, value in db_org.items():
+    #         if(key == 'id'):
+    #             orgIds.append(value)
     
-    new_org.update({'id': int(orgIds[-1]) + 1})
+    # new_org.update({'id': int(orgIds[-1]) + 1})
 
-    fakeDB.append(new_org)
+    # fakeDB.append(new_org)
 
-    org = new_org
+    # org = new_org
 
-    return org
+    return new_org
 
 def update_org(org_id: int, org: org_schemas.OrgIn):
     

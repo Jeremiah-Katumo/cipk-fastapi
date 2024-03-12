@@ -34,6 +34,24 @@ class GalleryItem(BaseModel):
     image: UploadFile 
     description: str 
 
+class Org(BaseModel):
+    name: str 
+    org_uuid: Union[UUID, None] = None
+    about: Union[str, None] = None
+    location: Union[str, None] = None
+    contacts: Union[OrgContact, None] = None
+    welcome_message: Union[str, None] = None
+    background: Union[str, None] = None
+    mission: Union[str, None] = None
+    vision: Union[str, None] = None
+    core_values: Union[List[str], None] = None
+    # team_members: Union[List[TeamMember], None] = None
+    # faqs: Union[List[FAQ], None] = None
+    # gallery: Union[List[GalleryItem], None] = None
+
+    class Config:
+        from_attributes = True
+
 class OrgIn(BaseModel):
     name: str 
     org_uuid: Union[UUID, None] = None
