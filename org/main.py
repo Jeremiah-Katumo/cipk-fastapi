@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from . import schemas, crud, models
-from .routes import org, contact_us
+from .organisation.models import models
+from .organisation.routes import entity, contact_us
 from .database import SessionLocal, engine
 from sqlalchemy.orm import Session
 
@@ -12,7 +12,7 @@ models.Base.metadata.create_all(bind=engine)
 async def root():
     return {'message': 'Welcome to CIPK API'} 
 
-app.include_router(org.router)
+app.include_router(entity.router)
 app.include_router(contact_us.router)
 
 
