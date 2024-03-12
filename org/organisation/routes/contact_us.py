@@ -3,7 +3,6 @@ from typing import Annotated, Union
 from ..schemas import schemas
 from ..cruds import  cruds
 
-
 router = APIRouter(
     prefix="/contact_us",
     tags=['Contact']
