@@ -1,12 +1,12 @@
 from fastapi import FastAPI
-from .organisation.models import models
+from .organisation.models import org_models
 from .organisation.routes import entity, contact_us, team, gallery, faqs
 from .database import SessionLocal, engine
 from sqlalchemy.orm import Session
 
 app = FastAPI()
 
-models.Base.metadata.create_all(bind=engine)
+org_models.Base.metadata.create_all(bind=engine)
 
 @app.get("/", tags=['Home'])
 async def root():

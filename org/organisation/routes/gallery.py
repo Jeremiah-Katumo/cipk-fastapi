@@ -1,7 +1,7 @@
 from fastapi import FastAPI, status, HTTPException, Path, APIRouter
 from typing import Annotated
-from ..schemas import schemas
-from ..cruds import cruds
+# from ..schemas import schemas
+# from ..cruds import cruds
 
 
 router = APIRouter(

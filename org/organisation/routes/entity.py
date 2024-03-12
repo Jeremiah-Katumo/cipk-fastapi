@@ -1,7 +1,7 @@
 from fastapi import FastAPI, status, HTTPException, Path, APIRouter
 from typing import Annotated
-from ..schemas import schemas
-from ..cruds import cruds
+from ..schemas import org_schemas
+from ..cruds import org_cruds
 
 
 router = APIRouter(
@@ -9,7 +9,7 @@ router = APIRouter(
     tags=['Oragnization']
 )
 
-@router.get("/{org_id}", response_model=schemas.OrgOut)
+@router.get("/{org_id}", response_model=org_schemas.OrgOut)
 def get_org(org_id: Annotated[int, Path(gt = 0)]):
     """
     ## Introduction:
@@ -20,12 +20,12 @@ def get_org(org_id: Annotated[int, Path(gt = 0)]):
     return org 
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.OrgOut)
-def create_org(org: schemas.OrgIn):
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=org_schemas.OrgOut)
+def create_org(org: org_schemas.OrgIn):
     org = cruds.create_org(org)
     return org
 
 @router.patch("/{org_id}")
-def update_org(org_id: int, org: schemas.OrgIn):
+def update_org(org_id: int, org: org_schemas.OrgIn):
     org = cruds.update_org(org_id, org)
     return org

@@ -1,5 +1,5 @@
 from fastapi import FastAPI, status, HTTPException
-from ..schemas import schemas
+from ..schemas import org_schemas
 from datetime import datetime, date
 
 fakeDB = [
@@ -33,7 +33,7 @@ def get_org(org_id: int):
                 break
     return org
 
-def create_org(org: schemas.OrgIn):
+def create_org(org: org_schemas.OrgIn):
     new_org = org.dict()
     
     orgIds = []
@@ -51,7 +51,7 @@ def create_org(org: schemas.OrgIn):
 
     return org
 
-def update_org(org_id: int, org: schemas.OrgIn):
+def update_org(org_id: int, org: org_schemas.OrgIn):
     
     update_successful = False 
     new_org = org.dict()
@@ -73,7 +73,7 @@ def update_org(org_id: int, org: schemas.OrgIn):
 
 # Contact US CRUDs
 
-def create_message(org_id: int, message: schemas.ContactMessageIn):
+def create_message(org_id: int, message: org_schemas.ContactMessageIn):
 
     message_ids = []
     new_message = message.dict()
@@ -87,7 +87,7 @@ def create_message(org_id: int, message: schemas.ContactMessageIn):
 
     fakeMessagesDb.append(new_message)
     
-    message = schemas.ContactMessageOut(**new_message)
+    message = org_schemas.ContactMessageOut(**new_message)
 
     # print(fakeMessagesDb)
 
