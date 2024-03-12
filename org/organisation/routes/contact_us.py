@@ -21,3 +21,7 @@ def get_messages(org_id: int, status: schemas.MessageStatus, limit: Union[int, N
     messages = cruds.get_messages(org_id, status, limit, offset)
 
     return messages
+
+@router.get("/{message_id}")
+def get_message():
+    return {'message': 'Get a message'}

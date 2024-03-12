@@ -45,9 +45,9 @@ class OrgIn(BaseModel):
     mission: Union[str, None] = None
     vision: Union[str, None] = None
     core_values: Union[List[str], None] = None
-    team_members: Union[List[TeamMember], None] = None
-    faqs: Union[List[FAQ], None] = None
-    gallery: Union[List[GalleryItem], None] = None
+    # team_members: Union[List[TeamMember], None] = None
+    # faqs: Union[List[FAQ], None] = None
+    # gallery: Union[List[GalleryItem], None] = None
 
 
 class OrgOut(OrgIn):
