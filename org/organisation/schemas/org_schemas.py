@@ -1,14 +1,14 @@
 
-from fastapi import UploadFile
+from fastapi import UploadFile, Form
 from datetime import datetime, date
 from pydantic import BaseModel, EmailStr
-from typing import Union, List
+from typing import Union, List, Annotated
 from enum import Enum
 from uuid import UUID
 
 class Positions(str, Enum):
-    director = "Director"
-    pc = "Project Cordinator"
+    director = "director"
+    pc = "project cordinator"
 
 class MessageStatus(str, Enum):
     all = "all"
@@ -25,6 +25,12 @@ class TeamMember(BaseModel):
     image: UploadFile
     position: Positions
     social_media_links: Union[List[str], None] = None
+
+# class TeamMemberForm(BaseModel):
+#     name: Annotated[str, Form()]
+#     image: Annotated[UploadFile, Form()]
+#     position: Annotated[Positions, Form()]
+#     social_media_links: Annotated[List[str], Form()]
 
 class FAQ(BaseModel):
     question: str 
