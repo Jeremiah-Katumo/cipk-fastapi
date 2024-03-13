@@ -1,6 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from typing import Annotated
+from sqlalchemy.orm import Session
+from fastapi import Depends
 
 # SQLALCHEMY_DATABASE_URL = "sqlite:///./cipk-dev.db"
 
@@ -21,3 +24,5 @@ def get_db():
         yield db
     finally:
         db.close()
+
+db_session = Annotated[Session, Depends(get_db)]

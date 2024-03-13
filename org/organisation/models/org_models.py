@@ -39,7 +39,7 @@ class ContactMessage(Base):
     email = Column(String)
     subject = Column(String)
     message = Column(String)
-    status = Column(String)
+    status = Column(String, default='new')
     # created_date = Column(String)
     created_date = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     updated_date = Column(String)

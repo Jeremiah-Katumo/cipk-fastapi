@@ -1,22 +1,23 @@
-from fastapi import FastAPI, status, HTTPException, Path, APIRouter, Depends
-from typing import Annotated
+from fastapi import FastAPI, status, HTTPException, Path, APIRouter
+from typing import Annotated, Union
 from ..schemas import org_schemas
 from ..cruds import org_cruds
-from ...database import get_db
-from sqlalchemy.orm import Session
-from fastapi.responses import UJSONResponse
+from ...database import db_session
 
 router = APIRouter(
     prefix="/org",
     tags=['Organization']
 )
 
-db_session = Annotated[Session, Depends(get_db)]
+
+@router.get("/") # , response_model=org_schemas.OrgOut
+def get_all_orgs(db: db_session, offset: Union[int, None] = 0, limit: Union[Annotated[int, Path(le=10)], None] = 10):
+    orgs = org_cruds.get_all_orgs(db, offset, limit)
+    return orgs
 
 @router.get("/{org_id}") # , response_model=org_schemas.OrgOut
 def get_org(db: db_session, org_id: Annotated[int, Path(gt = 0)]):
     org = org_cruds.get_org(db, org_id)
-    # print(org)
     return org 
 
 

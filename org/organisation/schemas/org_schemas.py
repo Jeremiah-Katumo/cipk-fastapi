@@ -11,8 +11,9 @@ class Positions(str, Enum):
     pc = "Project Cordinator"
 
 class MessageStatus(str, Enum):
-    new = "New"
-    replied = "Replied"
+    all = "all"
+    new = "new"
+    replied = "replied"
 
 class OrgContact(BaseModel):
     email: Union[EmailStr, None] = None
@@ -49,17 +50,6 @@ class OrgIn(BaseModel):
     class Config:
         orm_mode = True
 
-class OrgOut(OrgIn):
-    id: int
-    created_date: Union[str, None] = None 
-    updated_date: Union[datetime, None] = None
-    created_by: Union[int, None] = None 
-    updated_by: Union[int, None] = None 
-    org_status: Union[str, None] = 'active'
-
-    class Config:
-        orm_mode = True
-
 
 class ContactMessageIn(BaseModel):
     name: str 
@@ -75,3 +65,15 @@ class ContactMessageOut(ContactMessageIn):
     updated_date: Union[datetime, None] = None
     created_by: Union[int, None] = None 
     updated_by: Union[int, None] = None 
+
+class OrgOut(OrgIn):
+    id: int
+    # messages: List[ContactMessageOut]
+    created_date: Union[str, None] = None 
+    updated_date: Union[datetime, None] = None
+    created_by: Union[int, None] = None 
+    updated_by: Union[int, None] = None 
+    org_status: Union[str, None] = 'active'
+
+    class Config:
+        orm_mode = True
