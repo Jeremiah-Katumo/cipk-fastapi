@@ -15,9 +15,9 @@ class MessageStatus(str, Enum):
     replied = "Replied"
 
 class OrgContact(BaseModel):
-    email: EmailStr
-    phone: str 
-    hours: str
+    email: Union[EmailStr, None] = None
+    phone: Union[str, None] = None 
+    hours: Union[str, None] = None 
 
 class TeamMember(BaseModel):
     name: str 
@@ -34,8 +34,8 @@ class GalleryItem(BaseModel):
     image: UploadFile 
     description: str 
 
-class Org(BaseModel):
-    name: str 
+class OrgIn(BaseModel):
+    name: Union[str, None] 
     org_uuid: Union[UUID, None] = None
     about: Union[str, None] = None
     location: Union[str, None] = None
@@ -45,39 +45,21 @@ class Org(BaseModel):
     mission: Union[str, None] = None
     vision: Union[str, None] = None
     core_values: Union[List[str], None] = None
-    # team_members: Union[List[TeamMember], None] = None
-    # faqs: Union[List[FAQ], None] = None
-    # gallery: Union[List[GalleryItem], None] = None
 
     class Config:
-        from_attributes = True
-
-class OrgIn(BaseModel):
-    name: str 
-    org_uuid: Union[UUID, None] = None
-    about: Union[str, None] = None
-    location: Union[str, None] = None
-    contacts: Union[OrgContact, None] = None
-    welcome_message: Union[str, None] = None
-    background: Union[str, None] = None
-    mission: Union[str, None] = None
-    vision: Union[str, None] = None
-    core_values: Union[List[str], None] = None
-    # team_members: Union[List[TeamMember], None] = None
-    # faqs: Union[List[FAQ], None] = None
-    # gallery: Union[List[GalleryItem], None] = None
-
+        orm_mode = True
 
 class OrgOut(OrgIn):
     id: int
-    created_date: datetime
+    created_date: Union[str, None] = None 
     updated_date: Union[datetime, None] = None
     created_by: Union[int, None] = None 
     updated_by: Union[int, None] = None 
     org_status: Union[str, None] = 'active'
 
-# class OrgCreateError(BaseModel):
-#     message: str
+    class Config:
+        orm_mode = True
+
 
 class ContactMessageIn(BaseModel):
     name: str 
