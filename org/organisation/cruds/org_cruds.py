@@ -7,7 +7,9 @@ from sqlalchemy.orm import Session
 
 
 def get_all_orgs(db, offset, limit):
-    orgs = db.query(org_models.Org).limit(limit).offset(offset).all()
+    orgs = db.query(org_models.Org) \
+        .order_by(desc(org_models.Org.created_date)) \
+            .limit(limit).offset(offset).all()
 
     if len(orgs) == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No Org found")

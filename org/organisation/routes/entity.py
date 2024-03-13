@@ -1,8 +1,9 @@
 from fastapi import FastAPI, status, HTTPException, Path, APIRouter
-from typing import Annotated, Union
+from typing import Annotated, Union, List
 from ..schemas import org_schemas
 from ..cruds import org_cruds
 from ...database import db_session
+
 
 router = APIRouter(
     prefix="/org",
@@ -10,7 +11,7 @@ router = APIRouter(
 )
 
 
-@router.get("/") # , response_model=org_schemas.OrgOut
+@router.get("/", response_model=List[org_schemas.OrgOut])
 def get_all_orgs(db: db_session, offset: Union[int, None] = 0, limit: Union[Annotated[int, Path(le=10)], None] = 10):
     orgs = org_cruds.get_all_orgs(db, offset, limit)
     return orgs

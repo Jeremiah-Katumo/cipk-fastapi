@@ -4,6 +4,7 @@ from datetime import datetime, date
 from ..models import org_models
 from pydantic import parse_obj_as
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
 
 
 def create_message(db: Session, message: org_schemas.ContactMessageIn):
@@ -28,9 +29,14 @@ def get_messages(db, org_id: int, status: str, offset: int, limit: int):
     messages = []
 
     if status.value == 'all':
-        messages = db.query(org_models.ContactMessage).limit(limit).offset(offset).all()
+        messages = db.query(org_models.ContactMessage) \
+            .order_by(desc(org_models.ContactMessage.created_date)) \
+                .limit(limit).offset(offset).all()
     else:
-        messages = db.query(org_models.ContactMessage).filter(org_models.ContactMessage.status == status.value).limit(limit).offset(offset).all()
+        messages = db.query(org_models.ContactMessage) \
+            .filter(org_models.ContactMessage.status == status.value) \
+                .order_by(desc(org_models.ContactMessage.created_date)) \
+                    .limit(limit).offset(offset).all()
     
     if len(messages) == 0:
         raise HTTPException(status_code=404, detail=f"No {status.value} message found for org Id {org_id}")

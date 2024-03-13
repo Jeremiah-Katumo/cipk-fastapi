@@ -60,17 +60,21 @@ class ContactMessageIn(BaseModel):
 
 class ContactMessageOut(ContactMessageIn):
     id: int
+    org_id: int
     status: Union[str, None] = 'new'
-    created_date: date
-    updated_date: Union[datetime, None] = None
+    created_date: Union[date, None] = None 
+    updated_date: Union[date, None] = None
     created_by: Union[int, None] = None 
     updated_by: Union[int, None] = None 
 
+    class Config:
+        orm_mode = True
+
 class OrgOut(OrgIn):
     id: int
-    # messages: List[ContactMessageOut]
-    created_date: Union[str, None] = None 
-    updated_date: Union[datetime, None] = None
+    messages: list[ContactMessageOut]
+    created_date: Union[date, None] = None 
+    updated_date: Union[date, None] = None
     created_by: Union[int, None] = None 
     updated_by: Union[int, None] = None 
     org_status: Union[str, None] = 'active'
