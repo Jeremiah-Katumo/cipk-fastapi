@@ -34,9 +34,9 @@ class ContactMessage(Base):
     __tablename__ = "messages"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, index=True)
+    name = Column(String)
     org_id = Column(Integer, ForeignKey("orgs.id"))
-    email = Column(String)
+    email = Column(String, index=True)
     subject = Column(String)
     message = Column(String)
     status = Column(String, default='new')

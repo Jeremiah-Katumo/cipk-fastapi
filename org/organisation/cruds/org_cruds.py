@@ -39,7 +39,7 @@ def create_org(db: Session, org: org_schemas.OrgIn):
     db.commit()
     db.refresh(db_org)
 
-    return new_org
+    return db_org
 
 def update_org(db: Session, org_id: int, org: org_schemas.OrgIn):
     request_org = org.dict()

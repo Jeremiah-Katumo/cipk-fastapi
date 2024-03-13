@@ -58,6 +58,9 @@ class ContactMessageIn(BaseModel):
     subject: str 
     message: str
 
+    class Config:
+        orm_mode = True
+
 class ContactMessageOut(ContactMessageIn):
     id: int
     org_id: int

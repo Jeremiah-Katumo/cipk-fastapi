@@ -10,7 +10,6 @@ from sqlalchemy import desc
 def create_message(db: Session, message: org_schemas.ContactMessageIn):
 
     new_message = message.dict()
-
     org = db.query(org_models.Org).filter(org_models.Org.id == message.org_id).first() # .one() also works
     
     if not org:
@@ -21,7 +20,7 @@ def create_message(db: Session, message: org_schemas.ContactMessageIn):
     db.commit()
     db.refresh(db_message)
 
-    return new_message
+    return db_message
 
 
 def get_messages(db, org_id: int, status: str, offset: int, limit: int):
@@ -65,6 +64,7 @@ def update_message(db: Session, message_id: int, message: org_schemas.ContactMes
         if request_message[key] != None:
             to_update[key] = value
 
+    to_update.update({"updated_date": date.today()})
     get_message.update(to_update, synchronize_session=False)
     db.commit()
 
