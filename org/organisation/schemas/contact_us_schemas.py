@@ -15,11 +15,12 @@ class ContactMessageIn(BaseModel):
     email: EmailStr 
     subject: str 
     message: str
+    status: Union[List[MessageStatus], None] = None
 
 class ContactMessageOut(ContactMessageIn):
     id: int
     status: Union[str, None] = 'new'
     created_date: date
     updated_date: Union[datetime, None] = None
-    created_by: Union[int, None] = None 
-    updated_by: Union[int, None] = None 
+    created_by: Union[int, None] = None
+    updated_by: Union[int, None] = None

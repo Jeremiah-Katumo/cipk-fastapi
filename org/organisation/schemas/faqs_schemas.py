@@ -9,5 +9,8 @@ class Faq(BaseModel):
     question: str 
     answer: str
     
-class FAQs(BaseModel):
+class FAQsIn(BaseModel):
+    faqs: Union[List[Faq], None] = None
+    
+class FAQsOut(BaseModel):
     faqs: Union[List[Faq], None] = None

@@ -54,6 +54,7 @@ class Org(BaseModel):
     class Config:
         from_attributes = True
 
+
 class OrgIn(BaseModel):
     name: str 
     org_uuid: Union[UUID, None] = None
