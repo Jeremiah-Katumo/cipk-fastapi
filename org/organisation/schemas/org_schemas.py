@@ -6,35 +6,35 @@ from typing import Union, List
 from enum import Enum
 from uuid import UUID
 
-class Positions(str, Enum):
-    director = "Director"
-    pc = "Project Co-ordinator"
-    pm = "Project Manager"
-    fm = "Finance Manager"
+# class Positions(str, Enum):
+#     director = "Director"
+#     pc = "Project Co-ordinator"
+#     pm = "Project Manager"
+#     fm = "Finance Manager"
 
-class MessageStatus(str, Enum):
-    new = "New"
-    replied = "Replied"
+# class MessageStatus(str, Enum):
+#     new = "New"
+#     replied = "Replied"
 
 class OrgContact(BaseModel):
     email: EmailStr
     phone: str 
     hours: str
 
-class TeamMember(BaseModel):
-    name: str 
-    image: UploadFile
-    position: Positions
-    social_media_links: Union[List[str], None] = None
+# class TeamMember(BaseModel):
+#     name: str 
+#     image: UploadFile
+#     position: Positions
+#     social_media_links: Union[List[str], None] = None
 
-class FAQ(BaseModel):
-    question: str 
-    answer: str
+# class FAQ(BaseModel):
+#     question: str 
+#     answer: str
 
-class GalleryItem(BaseModel):
-    heading: str 
-    image: UploadFile 
-    description: str 
+# class GalleryItem(BaseModel):
+#     heading: str 
+#     image: UploadFile 
+#     description: str 
 
 class Org(BaseModel):
     name: str 
@@ -81,17 +81,17 @@ class OrgOut(OrgIn):
 # class OrgCreateError(BaseModel):
 #     message: str
 
-class ContactMessageIn(BaseModel):
-    name: str 
-    org_id: int
-    email: EmailStr 
-    subject: str 
-    message: str
+# class ContactMessageIn(BaseModel):
+#     name: str 
+#     org_id: int
+#     email: EmailStr 
+#     subject: str 
+#     message: str
 
-class ContactMessageOut(ContactMessageIn):
-    id: int
-    status: Union[str, None] = 'new'
-    created_date: date
-    updated_date: Union[datetime, None] = None
-    created_by: Union[int, None] = None 
-    updated_by: Union[int, None] = None 
+# class ContactMessageOut(ContactMessageIn):
+#     id: int
+#     status: Union[str, None] = 'new'
+#     created_date: date
+#     updated_date: Union[datetime, None] = None
+#     created_by: Union[int, None] = None 
+#     updated_by: Union[int, None] = None 
