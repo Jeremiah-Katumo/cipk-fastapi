@@ -4,7 +4,7 @@ from ..schemas import org_schemas
 from ..cruds import  org_cruds
 
 router = APIRouter(
-    prefix="/contact_us",
+    prefix="/contact_us", 
     tags=['Contact']
 )
 
@@ -20,6 +20,7 @@ def get_messages(org_id: int, status: org_schemas.MessageStatus, limit: Union[in
     messages = org_cruds.get_messages(org_id, status, limit, offset)
 
     return messages
+
 
 @router.get("/{message_id}")
 def get_message():

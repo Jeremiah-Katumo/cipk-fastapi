@@ -32,3 +32,4 @@ def create_org(db: db_session,org: org_schemas.OrgIn):
 def update_org(org_id: int, org: org_schemas.OrgIn):
     org = org_cruds.update_org(org_id, org)
     return org
+ 

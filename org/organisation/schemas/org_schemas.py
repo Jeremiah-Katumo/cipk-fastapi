@@ -8,7 +8,9 @@ from uuid import UUID
 
 class Positions(str, Enum):
     director = "Director"
-    pc = "Project Cordinator"
+    pc = "Project Co-ordinator"
+    pm = "Project Manager"
+    fm = "Finance Manager"
 
 class MessageStatus(str, Enum):
     new = "New"

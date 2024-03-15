@@ -3,7 +3,7 @@ from typing import Annotated
 # from ..schemas import org_schemas
 # from ..cruds import cruds
 
-
+ 
 router = APIRouter(
     prefix="/team",
     tags=['Team']
