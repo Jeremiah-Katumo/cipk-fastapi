@@ -12,11 +12,11 @@ router = APIRouter(
 
 @router.post('/')
 async def add_new_member(
-    db: db_session, 
-    name: Annotated[str, Form()], 
-    image: Annotated[UploadFile, File()],
-    position: Annotated[teams_schemas.Positions, Form()],
-    social_media_links: Annotated[List[str], Form()]
+        db: db_session, 
+        name: Annotated[str, Form()], 
+        image: Annotated[UploadFile, File()],
+        position: Annotated[teams_schemas.Positions, Form()],
+        social_media_links: Annotated[List[str], Form()]
     ):
     member = team_cruds.create_member(db, name, image, position, social_media_links)
     return member
