@@ -29,6 +29,6 @@ def create_org(db: db_session,org: org_schemas.OrgIn):
 
 @router.patch("/{org_id}", response_model=org_schemas.OrgOut)
 def update_org(db: db_session, org_id: int, org: org_schemas.OrgIn):
-    org = org_cruds.update_org(db, org_id, org)
-    return org
+    updated_org = org_cruds.update_org(db = db, org_id = org_id, org = org)
+    return updated_org
  

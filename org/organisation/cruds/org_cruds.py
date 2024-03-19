@@ -3,6 +3,8 @@ from ..schemas import org_schemas
 from ..models import org_models
 from pydantic import parse_obj_as
 from sqlalchemy.orm import Session
+from sqlalchemy import desc
+from datetime import date
 
 
 def get_all_orgs(db, offset, limit):
@@ -64,65 +66,4 @@ def update_org(db: Session, org_id: int, org: org_schemas.OrgIn):
     db.commit()
 
     return new_org
-
-def update_org(org_id: int, org: org_schemas.OrgIn):
-    
-    update_successful = False 
-    new_org = org.dict()
-
-    row = 0
-    for db_org in fakeDB:
-        for key, value in db_org.items():
-            if(key == 'id' and value == org_id):
-                new_org.update({'id': value})
-                fakeDB[row] = new_org
-                update_successful = True
-            break
-        row += 1 
-
-    if not update_successful:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Org Id {org_id} not found')
-
-    return new_org
-
-
-####################################################
-
-# Contact US CRUDs
-
-# def create_message(org_id: int, message: contact_us_schemas.ContactMessageIn):
-
-#     message_ids = []
-#     new_message = message.dict()
-
-#     for fakeMessage in fakeMessagesDb:
-#         for key, value in fakeMessage.items():
-#             if(key == 'id'):
-#                 message_ids.append(value)
-
-#     new_message.update({'id': int(message_ids[-1]) + 1, 'created_date': date.today(), 'status': 'new'})
-
-#     fakeMessagesDb.append(new_message)
-    
-#     message = contact_us_schemas.ContactMessageOut(**new_message)
-
-#     # print(fakeMessagesDb)
-
-#     return message
-
-
-# def get_messages(org_id: int, status: str, limit: int, offset: int):
-
-#     messages = []
-
-#     for fakeMessage in fakeMessagesDb:
-#         for key, value in fakeMessage.items():
-#             if key == 'status' and value == 'new' and org_id == org_id:
-#                 messages.append(fakeMessage)
-
-#     if len(messages) == 0:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No mesages found for the criteria provided")
-
-#     return messages
-
 

@@ -11,7 +11,7 @@ pymysql.install_as_MySQLdb()
 
 # SQLALCHEMY_DATABASE_URL = "postgresql://postgres:Compassion123@localhost:5433/cipk"
 
-SQLALCHEMY_DATABASE_URL = 'mysql+mysqldb://root:Mysql.003@localhost:3306/cipk_fastapi'
+SQLALCHEMY_DATABASE_URL = 'mysql+mysqldb://toolkit:Compassion123@localhost:3306/cipk_fastapi'
 
 # engine = create_engine(
 #     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}

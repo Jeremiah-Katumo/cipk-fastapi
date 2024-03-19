@@ -15,7 +15,10 @@ class ContactMessageIn(BaseModel):
     email: EmailStr 
     subject: str 
     message: str
-    status: Union[List[MessageStatus], None] = None
+    # status: Union[List[MessageStatus], None] = None
+
+    class Config:
+        orm_mode=True
 
 class ContactMessageOut(ContactMessageIn):
     id: int

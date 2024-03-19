@@ -5,6 +5,7 @@ from pydantic import BaseModel, EmailStr
 from typing import Union, List, Annotated
 from enum import Enum
 from uuid import UUID
+from ..schemas import contact_us_schemas
 
 
 class OrgContact(BaseModel):
@@ -31,7 +32,7 @@ class OrgIn(BaseModel):
 
 
 class OrgIn(BaseModel):
-    name: str 
+    name: Union[str, None] = None
     org_uuid: Union[UUID, None] = None
     about: Union[str, None] = None
     location: Union[str, None] = None
@@ -41,18 +42,22 @@ class OrgIn(BaseModel):
     mission: Union[str, None] = None
     vision: Union[str, None] = None
     core_values: Union[List[str], None] = None
-    # team_members: Union[List[TeamMember], None] = None
-    # faqs: Union[List[FAQ], None] = None
-    # gallery: Union[List[GalleryItem], None] = None
+
+    class Config:
+        orm_mode=True
 
 
 class OrgOut(OrgIn):
     id: int
+    messages: List[contact_us_schemas.ContactMessageOut]
     created_date: datetime
-    updated_date: Union[datetime, None] = None
+    updated_date: Union[date, None] = None
     created_by: Union[int, None] = None 
     updated_by: Union[int, None] = None 
     org_status: Union[str, None] = 'active'
+
+    class Config:
+        orm_mode=True
 
 # class OrgCreateError(BaseModel):
 #     message: str

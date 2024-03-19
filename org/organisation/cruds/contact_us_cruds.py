@@ -1,5 +1,5 @@
 from fastapi import FastAPI, status, HTTPException
-from ..schemas import org_schemas
+from ..schemas import contact_us_schemas
 from datetime import datetime, date
 from ..models import org_models
 from pydantic import parse_obj_as
@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import desc
 
 
-def create_message(db: Session, message: org_schemas.ContactMessageIn):
+def create_message(db: Session, message: contact_us_schemas.ContactMessageIn):
 
     new_message = message.dict()
     org = db.query(org_models.Org).filter(org_models.Org.id == message.org_id).first() # .one() also works
@@ -50,7 +50,7 @@ def get_single_message(db: Session, message_id: int):
     return message
 
 
-def update_message(db: Session, message_id: int, message: org_schemas.ContactMessageIn):
+def update_message(db: Session, message_id: int, message: contact_us_schemas.ContactMessageIn):
     request_message = message.dict()
     get_message = db.query(org_models.ContactMessage).filter(org_models.ContactMessage.id == message_id)
     new_message = get_message.first()
