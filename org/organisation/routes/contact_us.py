@@ -18,12 +18,13 @@ def create_org_message(db: db_session, message: contact_us_schemas.ContactMessag
 
 @router.get("/", response_model=List[contact_us_schemas.ContactMessageOut])
 def get_org_messages(
-    db: db_session, 
-    org_id: int, 
-    status: contact_us_schemas.MessageStatus, 
-    offset: Union[int, None] = 0, 
-    limit: Union[Annotated[int, Path(le=10)], None] = 10
+        db: db_session, 
+        org_id: int, 
+        status: contact_us_schemas.MessageStatus, 
+        offset: Union[int, None] = 0, 
+        limit: Union[Annotated[int, Path(le=10)], None] = 10
     ):
+    # Get all the messages limiting the 10 newest messages
     messages = contact_us_cruds.get_messages(db, org_id, status, offset, limit)
     return messages
 

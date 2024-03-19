@@ -15,7 +15,7 @@ def get_all_faqs():
     return {'message': 'List of FAQs'}
 
 @router.get("/{faq_id}")
-def get_faq_item():
+def get_faq_item(faq_id: int):
     return {'message':'FAQs Item'}
 
 @router.post('/')

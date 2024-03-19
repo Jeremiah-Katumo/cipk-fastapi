@@ -27,7 +27,7 @@ def get_all_team_members():
 
 @router.get("/{member_id}")
 def get_team_member():
-    return {'message':'Team member'}
+    return {'message': 'Team member'}
 
 @router.patch("/")
 def update_member():
