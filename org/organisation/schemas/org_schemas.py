@@ -1,43 +1,21 @@
 
-from fastapi import UploadFile
+from fastapi import UploadFile, Form
 from datetime import datetime, date
 from pydantic import BaseModel, EmailStr
-from typing import Union, List
+from typing import Union, List, Annotated
 from enum import Enum
 from uuid import UUID
 
-# class Positions(str, Enum):
-#     director = "Director"
-#     pc = "Project Co-ordinator"
-#     pm = "Project Manager"
-#     fm = "Finance Manager"
-
-# class MessageStatus(str, Enum):
-#     new = "New"
-#     replied = "Replied"
 
 class OrgContact(BaseModel):
-    email: EmailStr
-    phone: str 
-    hours: str
+    email: Union[EmailStr, None] = None
+    phone: Union[str, None] = None 
+    hours: Union[str, None] = None 
 
-# class TeamMember(BaseModel):
-#     name: str 
-#     image: UploadFile
-#     position: Positions
-#     social_media_links: Union[List[str], None] = None
 
-# class FAQ(BaseModel):
-#     question: str 
-#     answer: str
 
-# class GalleryItem(BaseModel):
-#     heading: str 
-#     image: UploadFile 
-#     description: str 
-
-class Org(BaseModel):
-    name: str 
+class OrgIn(BaseModel):
+    name: Union[str, None] 
     org_uuid: Union[UUID, None] = None
     about: Union[str, None] = None
     location: Union[str, None] = None
@@ -47,12 +25,9 @@ class Org(BaseModel):
     mission: Union[str, None] = None
     vision: Union[str, None] = None
     core_values: Union[List[str], None] = None
-    # team_members: Union[List[TeamMember], None] = None
-    # faqs: Union[List[FAQ], None] = None
-    # gallery: Union[List[GalleryItem], None] = None
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
 class OrgIn(BaseModel):
