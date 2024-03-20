@@ -20,7 +20,7 @@ def create_single_member(
     email: str
     ):
    
-    get_member = db.query(org_models.TeamMember).filter(org_models.TeamMember.id == email)
+    get_member = db.query(org_models.TeamMember).filter(org_models.TeamMember.email == email)
     member_in_db = get_member.first()
 
     if member_in_db !=  None:
