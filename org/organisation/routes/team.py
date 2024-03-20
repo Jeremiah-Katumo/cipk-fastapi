@@ -10,7 +10,7 @@ router = APIRouter(
     tags=['Team']
 )
 
-@router.post('/', response_model = teams_schemas.TeamMember)
+@router.post('/', response_model = teams_schemas.TeamMember, status_code=status.HTTP_201_CREATED)
 async def add_new_member(
     db: db_session, 
     name: Annotated[str, Form()], 

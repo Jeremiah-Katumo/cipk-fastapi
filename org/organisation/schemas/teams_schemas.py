@@ -16,7 +16,7 @@ class Positions(str, Enum):
 class TeamMember(BaseModel):
     id: int
     name: str 
-    image: Union[str, None] = None
+    profile_picture: Union[str, None] = None
     position: Union[str, None] = None
     social_media_links: Union[List[str], None] = None
     email: Union[str, None] = None
