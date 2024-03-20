@@ -4,7 +4,7 @@ from datetime import datetime, date
 from ..models import org_models
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
-from typing import List
+from typing import List, Union
 import os 
 import uuid
 
@@ -92,16 +92,18 @@ def create_member(
     db: Session, 
     name: str, 
     org_id: int,
-    profile_picture: UploadFile, 
-    position: teams_schemas.Positions, 
-    social_media_links: List[str],
-    phone: str = None,
-    email: str = None
+    email: str,
+    phone: Union[str, None] = None,
+    profile_picture: Union[UploadFile, None] = None, 
+    position: Union[teams_schemas.Positions, None] = None, 
+    social_media_links: Union[List[str], None] = []
     ):
 
     # Update the UploadFile to have a hashed filename
-    update_profile_picture = hashed_filename_profile_picture(profile_picture)
-    new_file = update_profile_picture.filename 
+    new_file = None
+    if profile_picture:
+        update_profile_picture = hashed_filename_profile_picture(profile_picture)
+        new_file = update_profile_picture.filename 
 
     # Create the member record in DB
     new_member = create_single_member(
@@ -116,7 +118,8 @@ def create_member(
     )
 
     # Upload the profile photo
-    upload_file(org_id, new_member.id, hashed_filename_profile_picture(profile_picture))
+    if profile_picture:
+        upload_file(org_id, new_member.id, hashed_filename_profile_picture(profile_picture))
 
     # Return the upoloaded new member
     return new_member
