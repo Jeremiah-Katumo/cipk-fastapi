@@ -5,7 +5,7 @@ from pydantic import BaseModel, EmailStr
 from typing import Union, List, Annotated
 from enum import Enum
 from uuid import UUID
-from ..schemas import contact_us_schemas
+from ..schemas import contact_us_schemas, teams_schemas
 
 
 class OrgContact(BaseModel):
@@ -50,6 +50,7 @@ class OrgIn(BaseModel):
 class OrgOut(OrgIn):
     id: int
     messages: List[contact_us_schemas.ContactMessageOut]
+    team_members: List[teams_schemas.TeamMember]
     created_date: datetime
     updated_date: Union[date, None] = None
     created_by: Union[int, None] = None 

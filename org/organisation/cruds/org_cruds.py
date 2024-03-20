@@ -1,13 +1,13 @@
 from fastapi import FastAPI, status, HTTPException
 from ..schemas import org_schemas
 from ..models import org_models
-from pydantic import parse_obj_as
+# from pydantic import parse_obj_as
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from datetime import date
 
 
-def get_all_orgs(db, offset, limit):
+def get_all_orgs(db: Session, offset: int, limit: int):
     orgs = db.query(org_models.Org) \
         .order_by(desc(org_models.Org.created_date)) \
             .limit(limit).offset(offset).all()

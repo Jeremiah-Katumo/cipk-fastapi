@@ -13,10 +13,20 @@ class Positions(str, Enum):
 
 
 class TeamMember(BaseModel):
+    id: int
     name: str 
-    image: UploadFile
-    position: Positions
+    image: Union[str, None] = None
+    position: Union[str, None] = None
     social_media_links: Union[List[str], None] = None
+    email: Union[str, None] = None
+    phone: Union[str, None] = None
+    created_date: datetime
+    updated_date: Union[date, None] = None
+    created_by: Union[int, None] = None 
+    updated_by: Union[int, None] = None 
+
+    class Config:
+        orm_mode=True
     
-class Team(BaseModel):
-    team_members: Union[List[TeamMember], None] = None
+# class Team(BaseModel):
+#     team_members: Union[List[TeamMember], None] = None
