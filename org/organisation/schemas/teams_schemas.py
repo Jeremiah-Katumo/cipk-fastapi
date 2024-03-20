@@ -5,6 +5,7 @@ from typing import Union, List
 from enum import Enum
 from uuid import UUID
 
+
 class Positions(str, Enum):
     director = "Director"
     pc = "Project Co-ordinator"

@@ -1,10 +1,11 @@
 from fastapi import FastAPI, status, HTTPException, UploadFile, File
-from ..schemas import teams_schemas
+from ..schemas import teams_schemas, general_schemas
 from datetime import datetime, date
 from ..models import org_models
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from typing import List, Union
+from ...utils import check_image_type_file_extension
 import os 
 import uuid
 
@@ -18,7 +19,7 @@ def create_single_member(
     social_media_links: str,
     phone: str,
     email: str
-    ):
+    ) -> teams_schemas.TeamMember:
    
     get_member = db.query(org_models.TeamMember).filter(org_models.TeamMember.email == email)
     member_in_db = get_member.first()
@@ -42,24 +43,19 @@ def create_single_member(
 
     return db_member
 
-def get_file_extension(profile_picture: UploadFile):
+def get_file_extension(profile_picture: UploadFile) -> general_schemas.ImageTypeFileExtensions:
     filename = profile_picture.filename
-    file_extension = filename.split('.')[-1]
+    file_extension = filename.split('.')[-1].lower()
 
     return file_extension
 
-def hashed_filename_profile_picture(profile_picture: UploadFile):
+def hashed_filename_profile_picture(profile_picture: UploadFile) -> UploadFile:
     file_hash = uuid.uuid4()
     profile_picture.filename = f"{file_hash}.{get_file_extension(profile_picture)}"
 
     return profile_picture
 
-def upload_file(org_id: int, member_id: int, profile_picture: UploadFile):
-
-    # Deny uploads of types not png and jpeg/jpg
-    allowed_extensions = ['png', 'jpg', 'jpeg']
-    if get_file_extension(profile_picture).lower() not in allowed_extensions:
-        raise HTTPException(status_code=400, detail="Only png and jpg file formats are allowed")
+def upload_file(org_id: int, member_id: int, profile_picture: UploadFile) -> str:
 
     # Deny file uploads of gt 2 MB
     if profile_picture.size > 2000000: # 2 MB
@@ -97,7 +93,11 @@ def create_member(
     profile_picture: Union[UploadFile, None] = None, 
     position: Union[teams_schemas.Positions, None] = None, 
     social_media_links: Union[List[str], None] = []
-    ):
+    ) -> teams_schemas.TeamMember:
+
+    # Check if the profile picture file is a valid image file. Deny uploads of types not png and jpeg/jpg
+    if profile_picture and not check_image_type_file_extension(get_file_extension(profile_picture)):
+        raise HTTPException(status_code=400, detail="Only png and jpg file formats are allowed")
 
     # Update the UploadFile to have a hashed filename
     new_file = None
