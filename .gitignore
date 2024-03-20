@@ -1,6 +1,6 @@
 /venv
 __pycache__
 /cipk-dev.db
-.env
+org/.env
 org/organisation/images/gallery/*
 org/organisation/images/profile_pictures/*

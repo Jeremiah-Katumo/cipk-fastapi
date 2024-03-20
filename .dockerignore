@@ -1,4 +1,4 @@
-.env
+org/.env
 venv
 .gitignore
 org/organisation/images/gallery/*
